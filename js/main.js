@@ -18,6 +18,31 @@ function getDrink(){
                 arrOfDrinks[i] = new DrinkList(data.drinks[i].strDrink, ingreds, data.drinks[i].strDrinkThumb, data.drinks[i].strInstructions)
             }
             console.log(arrOfDrinks)
+            let carousel = document.getElementById('carousel')
+            for (let i = 0 ; i < arrOfDrinks.length ; i++){
+                let section = document.createElement('section')
+                section.style.display = 'inline-block'
+                let heading = document.createElement('h3')
+                heading = arrOfDrinks[i].name
+                let pic = document.createElement('img')
+                pic = arrOfDrinks[i].picture
+                let ingredientFigure = document.createElement('figure')
+                let ingredCaption = document.createElement('figcaption')
+                ingredCaption.innerText = 'Ingredients'
+                ingredientFigure.append(ingredCaption)
+                let listOfIngreds = document.createElement('ol')
+                arrOfDrinks[i].ingredients.forEach(el => {
+                    let singleIngred = document.createElement('li')
+                    singleIngred = arrOfDrinks[i].ingredients[el]
+                    listOfIngreds.append(singleIngred)
+                })
+                ingredCaption.insertAdjacentElement('afterend', listOfIngreds)
+                let howToMake = document.createElement('p')
+                howToMake.innerText = arrOfDrinks[i].instructions
+                section.append(heading, pic, ingredientFigure, howToMake)
+                carousel.append(section)
+            }
+
         })
         .catch(err =>
             console.log(`the error '${err} occurred`)
