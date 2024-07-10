@@ -24,7 +24,6 @@ function getDrink(){
                 section.style.display = 'inline-block'
                 section.style.height = '600px'
                 section.style.width = '400px'
-                section.style.overflowWrap = 'scroll'
                 let heading = document.createElement('h3')
                 heading = arrOfDrinks[i].name
                 let pic = document.createElement('img')
