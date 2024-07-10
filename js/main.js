@@ -77,16 +77,94 @@ class DrinkList{
     }
 }
 
-// instr = document.createElement('p')
-//             instr.innerText = data.drinks[0].strInstructions
-//             document.querySelector('h3').append(instr)
-//             name = document.createElement('p')
-//             name.innerText = data.drinks[0].strDrink
-//             document.querySelector('h2').append(name)
-//             document.querySelector('img').src = data.drinks[0].strDrinkThumb
+/**
+ * Deregisters the carousal when either next or previous
+ * button is clicked. On button clicks, deregister and 
+ * re-register is required to avoid image change collisions.
+ * 
+ * Callback is executed which changes the order of images
+ * array.
+ * 
+ * setItem is called to apply the image order changes.
+ * 
+ * registerCarousal registers a new carousal loop, so that the
+ * loop continues forever.
+ */
+// function onButtonClick(callback) {
+//     if (typeof callback !== 'function') return;
 
-// create an array of objects
-// each object contains drink name, ingredients, picture, instructions
-//      do so via a constructor
+//     deregisterCarousel();
+//     callback();
+//     setItem();
+//     registerCarousal();
+// }
 
-// node express orm vue.js
+// /**
+//  * Responsible for changing the src on the
+//  * carousalItems.
+//  */
+// function setItem() {
+//     var img = document.getElementsByClassName('carousalItems');
+
+//     for (let i = 0; i < img.length; li++) {
+//         img.src = images[i];
+//     }
+// }
+
+// /**
+//  * Removes the first image and pushes it to the
+//  * end of the array.
+//  */
+// function shiftForNext() {
+//     let firstItem = images.shift();
+//     images.push(firstItem);
+// }
+
+// /**
+//  * Deregisters the existing timer.
+//  */
+// function deregisterCarousel() {
+
+//     if (timer == null) return;
+
+//     clearInterval(timer);
+//     timer = null;
+// }
+
+// function registerCarousal() {
+//     // Remove any existing timer.
+//     deregisterCarousel();
+
+//     // Loop every 1.5 seconds and shifts the 
+//     // images from 0 to length direction.
+//     timer = setInterval(function () {
+//         shiftForNext();
+
+//         // Responsible for changing the image src
+//         // on carousal list elements.
+//         setItem();
+//     }, 1500);
+// }
+
+// let timer = null;
+
+// // Registers the next button click.
+// document.getElementById('next').addEventListener('click', function () {
+//     onButtonClick(function () {
+//         shiftForNext();
+//     });
+// });
+
+// // Registers the previous button click.
+// document.getElementById('prev').addEventListener('click', function () {
+//     onButtonClick(function () {
+//         // Removes the last element of the images array
+//         let lastItem = images.pop();
+
+//         // And pushes it to the first position.
+//         images.unshift(lastItem);
+//     });
+// });
+
+// // Registers the carousal
+// registerCarousal();
