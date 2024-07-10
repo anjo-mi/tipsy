@@ -22,8 +22,9 @@ function getDrink(){
             for (let i = 0 ; i < arrOfDrinks.length ; i++){
                 let section = document.createElement('section')
                 section.style.display = 'inline-block'
-                section.style.height = '450px'
+                section.style.height = '600px'
                 section.style.width = '400px'
+                section.style.overflowWrap = 'scroll'
                 let heading = document.createElement('h3')
                 heading = arrOfDrinks[i].name
                 let pic = document.createElement('img')
