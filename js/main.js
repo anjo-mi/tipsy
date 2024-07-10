@@ -3,17 +3,21 @@ function getDrink(){
     let instr = ''
     let name = ''
     let drink = document.querySelector('input').value
-    fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita')
+    fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drink}`)
         .then(res => res.json())
         .then(data => {
             console.log(data.drinks)
-            instr = document.createElement('p')
-            instr.innerText = data.drinks[0].strInstructions
-            document.querySelector('h3').append(instr)
-            name = document.createElement('p')
-            name.innerText = data.drinks[0].strDrink
-            document.querySelector('h2').append(name)
-            document.querySelector('img').src = data.drinks[0].strDrinkThumb
+            let arrOfDrinks = []
+            for (let i = 0 ; i < data.drinks.length ; i ++){
+                let ingreds = []
+                for (let key in data.drinks[i]){
+                    if ((key.startsWith('strIngredient')) && (data.drinks[i][key] !== null)){
+                        ingreds.push(data.drinks[i][key])
+                    }
+                }
+                arrOfDrinks[i] = new DrinkList(data.drinks[i].strDrink, ingreds, data.drinks[i].strDrinkThumb, data.drinks[i].strInstructions)
+            }
+            console.log(arrOfDrinks)
         })
         .catch(err =>
             console.log(`the error '${err} occurred`)
@@ -44,6 +48,13 @@ class DrinkList{
     }
 }
 
+// instr = document.createElement('p')
+//             instr.innerText = data.drinks[0].strInstructions
+//             document.querySelector('h3').append(instr)
+//             name = document.createElement('p')
+//             name.innerText = data.drinks[0].strDrink
+//             document.querySelector('h2').append(name)
+//             document.querySelector('img').src = data.drinks[0].strDrinkThumb
 
 // create an array of objects
 // each object contains drink name, ingredients, picture, instructions
