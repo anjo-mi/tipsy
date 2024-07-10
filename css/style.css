@@ -21,6 +21,24 @@ img{
   height: 602px;
 }
 
+.hidden{
+  display: none;
+}
+
+.featured{
+  display: inline-block;
+}
+
+.next, .prev{
+  display: inline-block;
+  filter: blur(5px);
+}
+
+.twoAway{
+  display: inline-block;
+  filter:blur(10px);
+}
+
 /******************************************
 /* ADDITIONAL STYLES
 /*******************************************/

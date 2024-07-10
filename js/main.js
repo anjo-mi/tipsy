@@ -1,7 +1,5 @@
 //The user will enter a cocktail. Get a cocktail name, photo, and instructions and place them in the DOM
 function getDrink(){
-    let instr = ''
-    let name = ''
     let drink = document.querySelector('input').value
     fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drink}`)
         .then(res => res.json())
@@ -21,9 +19,10 @@ function getDrink(){
             let carousel = document.getElementById('carousel')
             for (let i = 0 ; i < arrOfDrinks.length ; i++){
                 let section = document.createElement('section')
-                section.style.display = 'inline-block'
+                // section.style.display = 'inline-block'
                 section.style.height = '600px'
                 section.style.width = '400px'
+                section.classList.add('hidden')
                 let heading = document.createElement('h3')
                 heading = arrOfDrinks[i].name
                 let pic = document.createElement('img')
@@ -45,6 +44,16 @@ function getDrink(){
                 carousel.append(section)
             }
             console.log(carousel)
+            carousel.firstChild.classList.replace('hidden', 'featured')
+            // arrOfDrinks[0].classList.toggle('featured')
+            carousel.nth-child(2).classList.replace('hidden', 'next')
+            // arrOfDrinks[1].classList.toggle('next')
+            carousel.lastChild.classList.replace('hidden', 'prev')
+            // arrOfDrinks[arrOfDrinks.length-1].classList.toggle('prev')
+            carousel.nth-child(3).classList.replace('hidden', 'twoAway')
+            // arrOfDrinks[2].classList.toggle('twoAway')
+            carousel.lastChild.previousElementSibling.classList.replace('hidden', 'twoAway')
+            // arrOfDrinks[arrOfDrinks.length-2].classList.toggle('twoAway')
 
         })
         .catch(err =>
@@ -52,7 +61,10 @@ function getDrink(){
         )
 }
 
+
+
 document.querySelector('button').addEventListener('click', getDrink)
+
 
 class DrinkList{
     constructor(name, ingredients, picture, instructions){
