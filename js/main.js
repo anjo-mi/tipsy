@@ -6,7 +6,7 @@ function getDrink(){
     fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drink}`)
         .then(res => res.json())
         .then(data => {
-            console.log(data.drinks)
+            // console.log(data.drinks)
             let arrOfDrinks = []
             for (let i = 0 ; i < data.drinks.length ; i ++){
                 let ingreds = []
@@ -22,10 +22,12 @@ function getDrink(){
             for (let i = 0 ; i < arrOfDrinks.length ; i++){
                 let section = document.createElement('section')
                 section.style.display = 'inline-block'
+                section.style.height = '450px'
+                section.style.width = '400px'
                 let heading = document.createElement('h3')
                 heading = arrOfDrinks[i].name
                 let pic = document.createElement('img')
-                pic = arrOfDrinks[i].picture
+                pic.src = arrOfDrinks[i].picture
                 let ingredientFigure = document.createElement('figure')
                 let ingredCaption = document.createElement('figcaption')
                 ingredCaption.innerText = 'Ingredients'
@@ -33,7 +35,7 @@ function getDrink(){
                 let listOfIngreds = document.createElement('ol')
                 arrOfDrinks[i].ingredients.forEach(el => {
                     let singleIngred = document.createElement('li')
-                    singleIngred = arrOfDrinks[i].ingredients[el]
+                    singleIngred.innerText = el
                     listOfIngreds.append(singleIngred)
                 })
                 ingredCaption.insertAdjacentElement('afterend', listOfIngreds)
@@ -42,6 +44,7 @@ function getDrink(){
                 section.append(heading, pic, ingredientFigure, howToMake)
                 carousel.append(section)
             }
+            console.log(carousel)
 
         })
         .catch(err =>
