@@ -17,12 +17,19 @@ function getDrink(){
             }
             console.log(arrOfDrinks)
             let carousel = document.getElementById('carousel')
+            let prevButton = document.createElement('button')
+            let nextButton = document.createElement('button')
+            prevButton.classList.add('goBack')
+            nextButton.classList.add('goForward')
+            carousel.insertAdjacentElement('beforebegin', prevButton)
+            carousel.insertAdjacentElement('afterend', nextButton)
             for (let i = 0 ; i < arrOfDrinks.length ; i++){
                 let section = document.createElement('section')
                 // section.style.display = 'inline-block'
                 section.style.height = '600px'
                 section.style.width = '400px'
                 section.classList.add('hidden')
+                section.classList.add('drink')
                 let heading = document.createElement('h3')
                 heading = arrOfDrinks[i].name
                 let pic = document.createElement('img')
@@ -51,15 +58,25 @@ function getDrink(){
             // arrOfDrinks[1].classList.toggle('next')
             sections[sections.length - 1].classList.replace('hidden', 'prev')
             // arrOfDrinks[arrOfDrinks.length-1].classList.toggle('prev')
-            sections[2].classList.replace('hidden', 'twoAway')
+            sections[2].classList.replace('hidden', 'twoNext')
             // arrOfDrinks[2].classList.toggle('twoAway')
-            sections[sections.length-2].classList.replace('hidden', 'twoAway')
+            sections[sections.length-2].classList.replace('hidden', 'twoFrom')
             // arrOfDrinks[arrOfDrinks.length-2].classList.toggle('twoAway')
 
         })
         .catch(err =>
             console.log(`the error '${err} occurred`)
         )
+}
+
+function prev(drinkArr){
+    let stored = drinkArr.pop()
+    drinkArr.unshift(stored)
+}
+
+function next(drinkArr){
+    let stored = drinkArr.shift()
+    drinkArr.push(stored)
 }
 
 

@@ -17,8 +17,15 @@ img{
 }
 
 .flex-container{
-  overflow-x: scroll;
+  display: inline-flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   height: 602px;
+  .drink{
+    flex: 0 0 auto;
+    margin: 0 5px;
+  }
 }
 
 .hidden{
@@ -27,16 +34,29 @@ img{
 
 .featured{
   display: inline-block;
+  order: 3;
 }
 
 .next, .prev{
   display: inline-block;
   filter: blur(5px);
 }
+.next{
+  order: 4;
+}
+.prev{
+  order: 2;
+}
 
-.twoAway{
+.twoNext, .twoFrom{
   display: inline-block;
   filter:blur(10px);
+}
+.twoNext{
+  order: 5;
+}
+.twoFrom{
+  order: 1;
 }
 
 /******************************************
