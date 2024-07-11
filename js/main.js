@@ -21,8 +21,6 @@ function getDrink(){
             let nextButton = document.createElement('button')
             prevButton.classList.add('goBack')
             nextButton.classList.add('goForward')
-            carousel.insertAdjacentElement('beforebegin', prevButton)
-            carousel.insertAdjacentElement('afterend', nextButton)
             for (let i = 0 ; i < arrOfDrinks.length ; i++){
                 let section = document.createElement('section')
                 // section.style.display = 'inline-block'
@@ -62,7 +60,8 @@ function getDrink(){
             // arrOfDrinks[2].classList.toggle('twoAway')
             sections[sections.length-2].classList.replace('hidden', 'twoFrom')
             // arrOfDrinks[arrOfDrinks.length-2].classList.toggle('twoAway')
-
+            document.querySelector('.goBack').addEventListener('click', prev(sections))
+            document.querySelector('.goForward').addEventListener('click', next(sections))
         })
         .catch(err =>
             console.log(`the error '${err} occurred`)
@@ -70,18 +69,30 @@ function getDrink(){
 }
 
 function prev(drinkArr){
+    drinkArr[0].classList.replace('featured', 'next')
+    drinkArr[1].classList.replace('next', 'twoNext')
+    drinkArr[2].classList.replace('twoNext', 'hidden')
+    drinkArr[drinkArr.length-3].classList.replace('hidden', 'twoPrev')
+    drinkArr[drinkArr.length-1].classList.replace('prev', 'featured')
+    drinkArr[drinkArr.length-2].classList.replace('twoPrev', 'prev')
     let stored = drinkArr.pop()
     drinkArr.unshift(stored)
 }
 
 function next(drinkArr){
+    drinkArr[0].classList.replace('featured', 'prev')
+    drinkArr[1].classList.replace('next', 'featured')
+    drinkArr[2].classList.replace('twoNext', 'next')
+    drinkArr[3].classList.replace('hidden', 'twoNext')
+    drinkArr[drinkArr.length-1].classList.replace('prev', 'twoPrev')
+    drinkArr[drinkArr.length-2].classList.replace('twoPrev', 'hidden')
     let stored = drinkArr.shift()
     drinkArr.push(stored)
 }
 
 
 
-document.querySelector('button').addEventListener('click', getDrink)
+document.querySelector('.find').addEventListener('click', getDrink)
 
 
 class DrinkList{
@@ -105,95 +116,3 @@ class DrinkList{
 
     }
 }
-
-/**
- * Deregisters the carousal when either next or previous
- * button is clicked. On button clicks, deregister and 
- * re-register is required to avoid image change collisions.
- * 
- * Callback is executed which changes the order of images
- * array.
- * 
- * setItem is called to apply the image order changes.
- * 
- * registerCarousal registers a new carousal loop, so that the
- * loop continues forever.
- */
-// function onButtonClick(callback) {
-//     if (typeof callback !== 'function') return;
-
-//     deregisterCarousel();
-//     callback();
-//     setItem();
-//     registerCarousal();
-// }
-
-// /**
-//  * Responsible for changing the src on the
-//  * carousalItems.
-//  */
-// function setItem() {
-//     var img = document.getElementsByClassName('carousalItems');
-
-//     for (let i = 0; i < img.length; li++) {
-//         img.src = images[i];
-//     }
-// }
-
-// /**
-//  * Removes the first image and pushes it to the
-//  * end of the array.
-//  */
-// function shiftForNext() {
-//     let firstItem = images.shift();
-//     images.push(firstItem);
-// }
-
-// /**
-//  * Deregisters the existing timer.
-//  */
-// function deregisterCarousel() {
-
-//     if (timer == null) return;
-
-//     clearInterval(timer);
-//     timer = null;
-// }
-
-// function registerCarousal() {
-//     // Remove any existing timer.
-//     deregisterCarousel();
-
-//     // Loop every 1.5 seconds and shifts the 
-//     // images from 0 to length direction.
-//     timer = setInterval(function () {
-//         shiftForNext();
-
-//         // Responsible for changing the image src
-//         // on carousal list elements.
-//         setItem();
-//     }, 1500);
-// }
-
-// let timer = null;
-
-// // Registers the next button click.
-// document.getElementById('next').addEventListener('click', function () {
-//     onButtonClick(function () {
-//         shiftForNext();
-//     });
-// });
-
-// // Registers the previous button click.
-// document.getElementById('prev').addEventListener('click', function () {
-//     onButtonClick(function () {
-//         // Removes the last element of the images array
-//         let lastItem = images.pop();
-
-//         // And pushes it to the first position.
-//         images.unshift(lastItem);
-//     });
-// });
-
-// // Registers the carousal
-// registerCarousal();
