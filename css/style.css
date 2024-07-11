@@ -22,9 +22,12 @@ img{
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   height: 602px;
+  position: relative;
+  transition: transform .5s ease-in-out;
   .drink{
     flex: 0 0 auto;
     margin: 0 5px;
+    transition: transform .5s ease-in-out;
   }
 }
 .goBack, .goForward{
@@ -42,8 +45,10 @@ img{
 
 .next, .prev{
   display: inline-block;
+  order: 3;
   filter: blur(5px);
 }
+
 .next{
   order: 4;
 }
