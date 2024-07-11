@@ -51,15 +51,10 @@ function getDrink(){
             console.log(carousel)
             const sections = Array.from(carousel.children)
             sections[0].classList.replace('hidden', 'featured')
-            // arrOfDrinks[0].classList.toggle('featured')
             sections[1].classList.replace('hidden', 'next')
-            // arrOfDrinks[1].classList.toggle('next')
             sections[sections.length - 1].classList.replace('hidden', 'prev')
-            // arrOfDrinks[arrOfDrinks.length-1].classList.toggle('prev')
             sections[2].classList.replace('hidden', 'twoNext')
-            // arrOfDrinks[2].classList.toggle('twoAway')
             sections[sections.length-2].classList.replace('hidden', 'twoFrom')
-            // arrOfDrinks[arrOfDrinks.length-2].classList.toggle('twoAway')
             document.querySelector('.goBack').addEventListener('click', () => {
                 prev(sections)
             })
@@ -73,14 +68,14 @@ function getDrink(){
 }
 
 function prev(drinkArr){
-    let stored = drinkArr.pop()
-    drinkArr.unshift(stored)
     drinkArr[0].classList.replace('featured', 'next')
     drinkArr[1].classList.replace('next', 'twoNext')
     drinkArr[2].classList.replace('twoNext', 'hidden')
-    drinkArr[drinkArr.length-3].classList.replace('hidden', 'twoPrev')
+    drinkArr[drinkArr.length-3].classList.replace('hidden', 'twoFrom')
     drinkArr[drinkArr.length-1].classList.replace('prev', 'featured')
-    drinkArr[drinkArr.length-2].classList.replace('twoPrev', 'prev')
+    drinkArr[drinkArr.length-2].classList.replace('twoFrom', 'prev')
+    let stored = drinkArr.pop()
+    drinkArr.unshift(stored)
 }
 
 function next(drinkArr){
@@ -88,8 +83,8 @@ function next(drinkArr){
     drinkArr[1].classList.replace('next', 'featured')
     drinkArr[2].classList.replace('twoNext', 'next')
     drinkArr[3].classList.replace('hidden', 'twoNext')
-    drinkArr[drinkArr.length-1].classList.replace('prev', 'twoPrev')
-    drinkArr[drinkArr.length-2].classList.replace('twoPrev', 'hidden')
+    drinkArr[drinkArr.length-1].classList.replace('prev', 'twoFrom')
+    drinkArr[drinkArr.length-2].classList.replace('twoFrom', 'hidden')
     let stored = drinkArr.shift()
     drinkArr.push(stored)
 }
