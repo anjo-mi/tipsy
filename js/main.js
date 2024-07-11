@@ -60,8 +60,12 @@ function getDrink(){
             // arrOfDrinks[2].classList.toggle('twoAway')
             sections[sections.length-2].classList.replace('hidden', 'twoFrom')
             // arrOfDrinks[arrOfDrinks.length-2].classList.toggle('twoAway')
-            document.querySelector('.goBack').addEventListener('click', prev(sections))
-            document.querySelector('.goForward').addEventListener('click', next(sections))
+            document.querySelector('.goBack').addEventListener('click', () => {
+                prev(sections)
+            })
+            document.querySelector('.goForward').addEventListener('click', () => {
+                next(sections)
+            })
         })
         .catch(err =>
             console.log(`the error '${err} occurred`)
@@ -69,14 +73,14 @@ function getDrink(){
 }
 
 function prev(drinkArr){
+    let stored = drinkArr.pop()
+    drinkArr.unshift(stored)
     drinkArr[0].classList.replace('featured', 'next')
     drinkArr[1].classList.replace('next', 'twoNext')
     drinkArr[2].classList.replace('twoNext', 'hidden')
     drinkArr[drinkArr.length-3].classList.replace('hidden', 'twoPrev')
     drinkArr[drinkArr.length-1].classList.replace('prev', 'featured')
     drinkArr[drinkArr.length-2].classList.replace('twoPrev', 'prev')
-    let stored = drinkArr.pop()
-    drinkArr.unshift(stored)
 }
 
 function next(drinkArr){
