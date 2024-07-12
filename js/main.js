@@ -82,17 +82,25 @@ function prev(drinkArr){
     drinkArr[drinkArr.length-2].style.transform = 'translateX(400px)'
     let stored = drinkArr.pop()
     drinkArr.unshift(stored)
+    console.log('prev' + drinkArr)
 }
 
 function next(drinkArr){
     drinkArr[0].classList.replace('featured', 'prev')
+    drinkArr[0].style.transform = 'translateX(-400px)'
     drinkArr[1].classList.replace('next', 'featured')
+    drinkArr[1].style.transform = 'translateX(-400px)'
     drinkArr[2].classList.replace('twoNext', 'next')
+    drinkArr[2].style.transform = 'translateX(-400px)'
     drinkArr[3].classList.replace('hidden', 'twoNext')
+    drinkArr[3].style.transform = 'translateX(-400px)'
     drinkArr[drinkArr.length-1].classList.replace('prev', 'twoFrom')
+    drinkArr[drinkArr.length-1].style.transform = 'translateX(-400px)'
     drinkArr[drinkArr.length-2].classList.replace('twoFrom', 'hidden')
+    drinkArr[drinkArr.length-2].style.transform = 'translateX(-400px)'
     let stored = drinkArr.shift()
     drinkArr.push(stored)
+    console.log('next' + drinkArr)
 }
 
 
