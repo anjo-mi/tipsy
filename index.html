@@ -8,6 +8,7 @@
 		<title>Title in the tab</title>
 
 		<!-- external CSS link -->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 		<link rel="stylesheet" href="css/normalize.css">
 		<link rel="stylesheet" href="css/style.css">
 	</head>
@@ -18,11 +19,15 @@
 		<button class='find' type="button" name="button">Get Cocktail</button>
 		<button class="goBack">&#x290E</button>
 		<button class="goForward">&#x290F</button>
+		<div class="container swiper">
+			<main class="slider-wrapper carousel" id="carousel">
 
-		<main class="drinkArr flex-container" id="carousel">
-
-		</main>
-
+			</main>
+			<div class="swiper-pagination"></div>
+			<div class="swiper-button-prev"></div>
+			<div class="swiper-button-next"></div>
+		</div>
 		<script type="text/javascript" src="js/main.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 	</body>
 </html>

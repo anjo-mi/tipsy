@@ -10,31 +10,66 @@
 /******************************************
 /* LAYOUT
 /*******************************************/
-img{
-  display: block;
-  margin: 0 auto;
-  height: 150px
+body{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: rgb(247, 247, 80) no-repeat center;
+}
+.container{
+  width: 100%;
 }
 
-.flex-container{
-  display: flex;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  height: 602px;
-  position: relative;
-  transition: transform .5s ease-in-out;
-  .drink{
-    flex: 0 0 auto;
-    margin: 0 5px;
-    transition: transform .5s ease-in-out;
-  }
+img{
+  padding: 4px;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+  border: 3px solid rgb(255, 255, 255);
 }
+
+.drink{
+  color: white;
+  width: 70%;
+  user-select: none;
+  background: rgba(255, 255, 255, .2);
+  display: flex;
+  flex-direction: column;
+  padding: 35px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, .5);
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(30px);
+}
+
+.slider-wrapper .drink h3,
+.slider-wrapper .drink figure,
+.slider-wrapper .drink p{
+  width: 100%;
+  font-size: 20px;
+  color: green;
+  font-weight: 500;
+  margin: 14px 0 40px;
+}
+.slider-wrapper{
+  overflow: hidden;
+  margin: 0 70px 55px;
+  width: 100%;
+}
+.swiper-pagination-bullets{
+  background: white;
+  height: 15px;
+  width: 15px;
+}
+
 .goBack, .goForward{
   border-radius: 50%;
 }
 
-.hidden{
+/* .hidden{
   display: none;
 }
 
@@ -65,7 +100,7 @@ img{
 }
 .twoFrom{
   order: 1;
-}
+} */
 
 /******************************************
 /* ADDITIONAL STYLES

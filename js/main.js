@@ -28,8 +28,9 @@ function getDrink(){
                 section.style.width = '400px'
                 section.classList.add('hidden')
                 section.classList.add('drink')
+                section.classList.add('swiper-slide')
                 let heading = document.createElement('h3')
-                heading = arrOfDrinks[i].name
+                heading.innerText = arrOfDrinks[i].name
                 let pic = document.createElement('img')
                 pic.src = arrOfDrinks[i].picture
                 let ingredientFigure = document.createElement('figure')
@@ -61,25 +62,33 @@ function getDrink(){
             document.querySelector('.goForward').addEventListener('click', () => {
                 next(sections)
             })
+            const swiper = new Swiper('.slider-wrapper', {
+                loop: true,
+              
+                // If we need pagination
+                pagination: {
+                  el: '.swiper-pagination',
+                },
+              
+                navigation: {
+                  nextEl: '.swiper-button-next',
+                  prevEl: '.swiper-button-prev',
+                },
+              });
         })
         .catch(err =>
             console.log(`the error '${err} occurred`)
         )
 }
 
+
 function prev(drinkArr){
     drinkArr[0].classList.replace('featured', 'next')
-    drinkArr[0].style.transform = 'translateX(400px)'
     drinkArr[1].classList.replace('next', 'twoNext')
-    drinkArr[1].style.transform = 'translateX(400px)'
     drinkArr[2].classList.replace('twoNext', 'hidden')
-    drinkArr[2].style.transform = 'translateX(400px)'
     drinkArr[drinkArr.length-3].classList.replace('hidden', 'twoFrom')
-    drinkArr[drinkArr.length-3].style.transform = 'translateX(400px)'
     drinkArr[drinkArr.length-1].classList.replace('prev', 'featured')
-    drinkArr[drinkArr.length-1].style.transform = 'translateX(400px)'
     drinkArr[drinkArr.length-2].classList.replace('twoFrom', 'prev')
-    drinkArr[drinkArr.length-2].style.transform = 'translateX(400px)'
     let stored = drinkArr.pop()
     drinkArr.unshift(stored)
     console.log('prev' + drinkArr)
@@ -87,17 +96,11 @@ function prev(drinkArr){
 
 function next(drinkArr){
     drinkArr[0].classList.replace('featured', 'prev')
-    drinkArr[0].style.transform = 'translateX(-400px)'
     drinkArr[1].classList.replace('next', 'featured')
-    drinkArr[1].style.transform = 'translateX(-400px)'
     drinkArr[2].classList.replace('twoNext', 'next')
-    drinkArr[2].style.transform = 'translateX(-400px)'
     drinkArr[3].classList.replace('hidden', 'twoNext')
-    drinkArr[3].style.transform = 'translateX(-400px)'
     drinkArr[drinkArr.length-1].classList.replace('prev', 'twoFrom')
-    drinkArr[drinkArr.length-1].style.transform = 'translateX(-400px)'
     drinkArr[drinkArr.length-2].classList.replace('twoFrom', 'hidden')
-    drinkArr[drinkArr.length-2].style.transform = 'translateX(-400px)'
     let stored = drinkArr.shift()
     drinkArr.push(stored)
     console.log('next' + drinkArr)
