@@ -16,7 +16,7 @@ function getDrink(){
                 arrOfDrinks[i] = new DrinkList(data.drinks[i].strDrink, ingreds, data.drinks[i].strDrinkThumb, data.drinks[i].strInstructions)
             }
             console.log(arrOfDrinks)
-            let carousel = document.getElementById('carousel')
+            let carousel = document.querySelector('.carousel')
             let prevButton = document.createElement('button')
             let nextButton = document.createElement('button')
             prevButton.classList.add('goBack')
@@ -51,18 +51,18 @@ function getDrink(){
             }
             console.log(carousel)
             const sections = Array.from(carousel.children)
-            sections[0].classList.replace('hidden', 'featured')
-            sections[1].classList.replace('hidden', 'next')
-            sections[sections.length - 1].classList.replace('hidden', 'prev')
-            sections[2].classList.replace('hidden', 'twoNext')
-            sections[sections.length-2].classList.replace('hidden', 'twoFrom')
-            document.querySelector('.goBack').addEventListener('click', () => {
-                prev(sections)
-            })
-            document.querySelector('.goForward').addEventListener('click', () => {
-                next(sections)
-            })
-            const swiper = new Swiper('.slider-wrapper', {
+            // sections[0].classList.replace('hidden', 'featured')
+            // sections[1].classList.replace('hidden', 'next')
+            // sections[sections.length - 1].classList.replace('hidden', 'prev')
+            // sections[2].classList.replace('hidden', 'twoNext')
+            // sections[sections.length-2].classList.replace('hidden', 'twoFrom')
+            // document.querySelector('.goBack').addEventListener('click', () => {
+            //     prev(sections)
+            // })
+            // document.querySelector('.goForward').addEventListener('click', () => {
+            //     next(sections)
+            // })
+            const swiper = new Swiper('.carousel', {
                 loop: true,
               
                 // If we need pagination
@@ -76,9 +76,9 @@ function getDrink(){
                 },
               });
         })
-        .catch(err =>
-            console.log(`the error '${err} occurred`)
-        )
+        // .catch(err =>
+        //     console.log(`the error '${err} occurred`)
+        // )
 }
 
 
