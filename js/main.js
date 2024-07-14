@@ -29,7 +29,7 @@ function getDrink(){
                 section.classList.add('hidden')
                 section.classList.add('drink')
                 let heading = document.createElement('h3')
-                heading = arrOfDrinks[i].name
+                heading.innerText  = arrOfDrinks[i].name
                 let pic = document.createElement('img')
                 pic.src = arrOfDrinks[i].picture
                 let ingredientFigure = document.createElement('figure')
