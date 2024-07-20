@@ -1,112 +1,117 @@
-//The user will enter a cocktail. Get a cocktail name, photo, and instructions and place them in the DOM
-function getDrink(){
-    let drink = document.querySelector('input').value
+function updateCarousel(sections) {
+    const positions = ['twoFrom', 'prev', 'featured', 'next', 'twoNext'];
+    sections.forEach((section, index) => {
+        section.className = 'drink';
+        section.classList.add(positions[index]);
+    });
+}
+
+function prev(sections) {
+    const last = sections.pop();
+    sections.unshift(last);
+    updateCarousel(sections);
+}
+
+function next(sections) {
+    const first = sections.shift();
+    sections.push(first);
+    updateCarousel(sections);
+}
+
+document.querySelector('.find').addEventListener('click', () => {
+    getDrink();
+});
+
+function getDrink() {
+    let drink = document.querySelector('input').value;
     fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drink}`)
         .then(res => res.json())
         .then(data => {
-            // console.log(data.drinks)
-            let arrOfDrinks = []
-            for (let i = 0 ; i < data.drinks.length ; i ++){
-                let ingreds = []
-                for (let key in data.drinks[i]){
-                    if ((key.startsWith('strIngredient')) && (data.drinks[i][key] !== null)){
-                        ingreds.push(data.drinks[i][key])
+            let arrOfDrinks = [];
+            for (let i = 0; i < data.drinks.length; i++) {
+                let ingreds = [];
+                for (let key in data.drinks[i]) {
+                    if ((key.startsWith('strIngredient')) && (data.drinks[i][key] !== null)) {
+                        ingreds.push(data.drinks[i][key]);
                     }
                 }
-                arrOfDrinks[i] = new DrinkList(data.drinks[i].strDrink, ingreds, data.drinks[i].strDrinkThumb, data.drinks[i].strInstructions)
+                arrOfDrinks[i] = new DrinkList(data.drinks[i].strDrink, ingreds, data.drinks[i].strDrinkThumb, data.drinks[i].strInstructions);
             }
-            console.log(arrOfDrinks)
-            let carousel = document.getElementById('carousel')
-            let prevButton = document.createElement('button')
-            let nextButton = document.createElement('button')
-            prevButton.classList.add('goBack')
-            nextButton.classList.add('goForward')
-            for (let i = 0 ; i < arrOfDrinks.length ; i++){
-                let section = document.createElement('section')
-                // section.style.display = 'inline-block'
-                section.style.height = '600px'
-                section.style.width = '400px'
-                section.classList.add('hidden')
-                section.classList.add('drink')
-                let heading = document.createElement('h3')
-                heading.innerText  = arrOfDrinks[i].name
-                let pic = document.createElement('img')
-                pic.src = arrOfDrinks[i].picture
-                let ingredientFigure = document.createElement('figure')
-                let ingredCaption = document.createElement('figcaption')
-                ingredCaption.innerText = 'Ingredients'
-                ingredientFigure.append(ingredCaption)
-                let listOfIngreds = document.createElement('ol')
-                arrOfDrinks[i].ingredients.forEach(el => {
-                    let singleIngred = document.createElement('li')
-                    singleIngred.innerText = el
-                    listOfIngreds.append(singleIngred)
-                })
-                ingredCaption.insertAdjacentElement('afterend', listOfIngreds)
-                let howToMake = document.createElement('p')
-                howToMake.innerText = arrOfDrinks[i].instructions
-                section.append(heading, pic, ingredientFigure, howToMake)
-                carousel.append(section)
-            }
-            console.log(carousel)
-            const sections = Array.from(carousel.children)
-            sections[0].classList.replace('hidden', 'featured')
-            sections[1].classList.replace('hidden', 'next')
-            sections[sections.length - 1].classList.replace('hidden', 'prev')
-            sections[2].classList.replace('hidden', 'twoNext')
-            sections[sections.length-2].classList.replace('hidden', 'twoFrom')
+            let carousel = document.getElementById('carousel');
+            carousel.innerHTML = ''; // Clear existing items
+            arrOfDrinks.forEach(drink => {
+                let section = document.createElement('section');
+                section.style.height = '600px';
+                section.style.width = '400px';
+                section.classList.add('drink');
+                let heading = document.createElement('h3');
+                heading.innerText = drink.name;
+                let pic = document.createElement('img');
+                pic.src = drink.picture;
+                let ingredientFigure = document.createElement('figure');
+                let ingredCaption = document.createElement('figcaption');
+                ingredCaption.innerText = 'Ingredients';
+                ingredientFigure.append(ingredCaption);
+                let listOfIngreds = document.createElement('ol');
+                drink.ingredients.forEach(el => {
+                    let singleIngred = document.createElement('li');
+                    singleIngred.innerText = el;
+                    listOfIngreds.append(singleIngred);
+                });
+                ingredCaption.insertAdjacentElement('afterend', listOfIngreds);
+                let howToMake = document.createElement('p');
+                howToMake.innerText = drink.instructions;
+                section.append(heading, pic, ingredientFigure, howToMake);
+                carousel.append(section);
+            });
+
+            const sections = Array.from(carousel.children);
+            updateCarousel(sections);
+
             document.querySelector('.goBack').addEventListener('click', () => {
-                prev(sections)
-            })
+                prev(sections);
+            });
             document.querySelector('.goForward').addEventListener('click', () => {
-                next(sections)
-            })
+                next(sections);
+            });
         })
-        .catch(err =>
-            console.log(`the error '${err} occurred`)
-        )
+        .catch(err => console.log(`the error '${err}' occurred`));
 }
 
-function prev(drinkArr){
-    drinkArr[0].classList.replace('featured', 'next')
-    // drinkArr[0].style.transform = 'translateX(400px)'
-    drinkArr[1].classList.replace('next', 'twoNext')
-    // drinkArr[1].style.transform = 'translateX(400px)'
-    drinkArr[2].classList.replace('twoNext', 'hidden')
-    // drinkArr[2].style.transform = 'translateX(400px)'
-    drinkArr[drinkArr.length-3].classList.replace('hidden', 'twoFrom')
-    // drinkArr[drinkArr.length-3].style.transform = 'translateX(400px)'
-    drinkArr[drinkArr.length-1].classList.replace('prev', 'featured')
-    // drinkArr[drinkArr.length-1].style.transform = 'translateX(400px)'
-    drinkArr[drinkArr.length-2].classList.replace('twoFrom', 'prev')
-    // drinkArr[drinkArr.length-2].style.transform = 'translateX(400px)'
-    let stored = drinkArr.pop()
-    drinkArr.unshift(stored)
-    console.log('prev' + drinkArr)
+function updateCarousel(sections) {
+    const visibleCount = 5;
+    const totalSections = sections.length;
+    sections.forEach((section, index) => {
+        section.style.transform = `translateX(${(index - Math.floor(visibleCount / 2)) * 400}px)`;
+        section.style.zIndex = totalSections - Math.abs(index - Math.floor(visibleCount / 2));
+        if (index < Math.floor(visibleCount / 2) || index > totalSections - Math.ceil(visibleCount / 2)) {
+            section.style.opacity = '0';
+        } else {
+            section.style.opacity = '1';
+        }
+    });
 }
 
-function next(drinkArr){
-    drinkArr[0].classList.replace('featured', 'prev')
-    // drinkArr[0].style.transform = 'translateX(-400px)'
-    drinkArr[1].classList.replace('next', 'featured')
-    // drinkArr[1].style.transform = 'translateX(-400px)'
-    drinkArr[2].classList.replace('twoNext', 'next')
-    // drinkArr[2].style.transform = 'translateX(-400px)'
-    drinkArr[3].classList.replace('hidden', 'twoNext')
-    // drinkArr[3].style.transform = 'translateX(-400px)'
-    drinkArr[drinkArr.length-1].classList.replace('prev', 'twoFrom')
-    // drinkArr[drinkArr.length-1].style.transform = 'translateX(-400px)'
-    drinkArr[drinkArr.length-2].classList.replace('twoFrom', 'hidden')
-    // drinkArr[drinkArr.length-2].style.transform = 'translateX(-400px)'
-    let stored = drinkArr.shift()
-    drinkArr.push(stored)
-    console.log('next' + drinkArr)
+function prev(sections) {
+    sections.unshift(sections.pop());
+    updateCarousel(sections);
 }
 
+function next(sections) {
+    sections.push(sections.shift());
+    updateCarousel(sections);
+}
 
+document.querySelector('.find').addEventListener('click', getDrink);
 
-document.querySelector('.find').addEventListener('click', getDrink)
-
+// class DrinkList {
+//     constructor(name, ingredients, picture, instructions) {
+//         this.name = name;
+//         this.ingredients = ingredients;
+//         this.picture = picture;
+//         this.instructions = instructions;
+//     }
+// }
 
 class DrinkList{
     constructor(name, ingredients, picture, instructions){

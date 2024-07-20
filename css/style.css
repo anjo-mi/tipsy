@@ -1,72 +1,57 @@
-/******************************************
-/* CSS
-/*******************************************/
-
-/* Box Model Hack */
-*{
-  box-sizing: border-box;
-}
-
-/******************************************
-/* LAYOUT
-/*******************************************/
-img{
-  display: block;
-  margin: 0 auto;
-  height: 150px
-}
-
-.flex-container{
-  display: flex;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  height: 602px;
-  position: relative;
-  transition: transform .5s ease-in-out;
-  .drink{
-    flex: 0 0 auto;
-    margin: 0 5px;
-    transition: transform .5s ease-in-out;
+* {
+    box-sizing: border-box;
   }
-}
-.goBack, .goForward{
-  border-radius: 50%;
-}
-
-.hidden{
-  display: none;
-}
-
-.featured{
-  display: inline-block;
-  order: 3;
-}
-
-.next, .prev{
-  display: inline-block;
-  order: 3;
-  filter: blur(5px);
-}
-
-.next{
-  order: 4;
-}
-.prev{
-  order: 2;
-}
-
-.twoNext, .twoFrom{
-  display: inline-block;
-  filter:blur(10px);
-}
-.twoNext{
-  order: 5;
-}
-.twoFrom{
-  order: 1;
-}
-
-/******************************************
-/* ADDITIONAL STYLES
-/*******************************************/
+  
+  img {
+    display: block;
+    margin: 0 auto;
+    height: 150px;
+  }
+  
+  .flex-container {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    height: 602px;
+    position: relative;
+  }
+  
+  .drink {
+    position: absolute;
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    width: 400px;
+    height: 600px;
+    top: 0;
+  }
+  
+  .goBack, .goForward {
+    border-radius: 50%;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  .featured {
+    transform: translateX(0);
+  }
+  
+  .next {
+    transform: translateX(410px);
+    filter: blur(5px);
+  }
+  
+  .prev {
+    transform: translateX(-410px);
+    filter: blur(5px);
+  }
+  
+  .twoNext {
+    transform: translateX(820px);
+    filter: blur(10px);
+  }
+  
+  .twoFrom {
+    transform: translateX(-820px);
+    filter: blur(10px);
+  }
